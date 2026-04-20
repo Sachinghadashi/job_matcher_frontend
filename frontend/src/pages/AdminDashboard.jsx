@@ -17,7 +17,6 @@ const AdminDashboard = () => {
     const [analytics, setAnalytics] = useState(null);
     const [jobs, setJobs] = useState([]);
     const [users, setUsers] = useState([]);
-    const [syncing, setSyncing] = useState(false);
 
     // Modal States
     const [showJobModal, setShowJobModal] = useState(false);
@@ -129,35 +128,7 @@ const AdminDashboard = () => {
         }
     };
 
-    const handleSyncFromCSV = async () => {
-        setSyncing(true);
-        try {
-            const res = await jobAPI.syncFromCSV();
-            Swal.fire({
-                title: 'Sync Complete',
-                html: `<div class="text-start">
-                        <p class="mb-2">${res.data.message}</p>
-                        <ul class="list-unstyled mb-0">
-                            <li><i class="bi bi-check-circle-fill text-success me-2"></i><strong>Updated:</strong> ${res.data.details.updated}</li>
-                            <li><i class="bi bi-plus-circle-fill text-primary me-2"></i><strong>Created:</strong> ${res.data.details.created}</li>
-                        </ul>
-                       </div>`,
-                icon: 'success',
-                confirmButtonColor: '#4361ee',
-                borderRadius: '15px'
-            });
-            fetchData();
-        } catch (error) {
-            console.error(error);
-            Swal.fire({
-                title: 'Sync Failed',
-                text: 'Unable to synchronize from CSV.',
-                icon: 'error',
-                confirmButtonColor: '#4361ee'
-            });
-        }
-        setSyncing(false);
-    };
+
 
     const chartData = {
         labels: analytics?.topSkills?.map(s => s.skill) || [],
@@ -285,10 +256,6 @@ const AdminDashboard = () => {
                     <div className="d-flex justify-content-between align-items-center mb-4">
                         <h4 className="fw-bold mb-0"><i className="bi bi-briefcase-fill text-primary me-2"></i>Job Postings</h4>
                         <div className="d-flex gap-2">
-                            <button className="btn btn-outline-primary rounded-pill px-4 fw-bold shadow-sm" onClick={handleSyncFromCSV} disabled={syncing}>
-                                <i className={`bi ${syncing ? 'bi-hourglass-split' : 'bi-arrow-repeat'} me-2`}></i>
-                                {syncing ? 'Syncing...' : 'Sync from CSV'}
-                            </button>
                             <button className="btn btn-primary rounded-pill px-4 fw-bold shadow-sm" onClick={() => openJobModal()}><i className="bi bi-plus-lg me-2"></i>Post New Job</button>
                         </div>
                     </div>

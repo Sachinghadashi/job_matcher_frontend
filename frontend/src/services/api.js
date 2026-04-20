@@ -27,8 +27,7 @@ export const jobAPI = {
     createJob: (data) => api.post('/jobs', data),
     deleteJob: (id) => api.delete(`/jobs/${id}`),
     updateJob: (id, data) => api.put(`/jobs/${id}`, data),
-    getAnalytics: () => api.get('/jobs/analytics'),
-    syncFromCSV: () => api.post('/jobs/sync-from-csv')
+    getAnalytics: () => api.get('/jobs/analytics')
 };
 
 export default api;
