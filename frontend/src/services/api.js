@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_ROOT = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5001/api';
+const API_ROOT = import.meta.env.VITE_API_BASE_URL || 'https://job-matcher-api-60g2.onrender.com/api';
 
 const api = axios.create({
     baseURL: API_ROOT,
