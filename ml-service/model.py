@@ -3,27 +3,36 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 import os
 from pymongo import MongoClient
+from dotenv import load_dotenv
+
+# Load environment variables
+load_dotenv()
 
 # Load dataset configuration
-MONGO_URI = os.getenv('MONGO_URI', 'mongodb://localhost:27017/job-matcher')
+MONGO_URI = os.getenv('MONGO_URI')
 
 def load_jobs():
     try:
         # Connect to MongoDB
         client = MongoClient(MONGO_URI)
-        db = client.get_default_database()
+        # Explicitly select the database from the URI or fallback to 'jobmatcher'
+        db = client.get_database() 
         
         # Fetch all jobs from the 'jobs' collection
         jobs_collection = db['jobs']
         jobs_list = list(jobs_collection.find())
         
         if not jobs_list:
-            print("No jobs found in database.")
+            print("Database connected, but no jobs found in 'jobs' collection.")
             return pd.DataFrame()
             
         # Convert to DataFrame
         df = pd.DataFrame(jobs_list)
         
+        # IMPORTANT: Convert ObjectId to string for JSON serialization later
+        if '_id' in df.columns:
+            df['_id'] = df['_id'].apply(str)
+            
         # Ensure job_id is string
         if 'job_id' in df.columns:
             df['job_id'] = df['job_id'].astype(str)
@@ -41,9 +50,11 @@ def get_job_recommendations(user_skills, top_n=5):
     # Prepare user query
     user_skills_str = " ".join(user_skills).lower()
 
-    # We will compute similarities between user_skills_str and all job skills
+    # Convert job skill lists to strings for vectorization
+    job_skills_strings = df['skills_required'].apply(lambda x: " ".join(x) if isinstance(x, list) else str(x)).fillna('').tolist()
+
     # Combine user skills with job skills for vectorization
-    all_skills = [user_skills_str] + df['skills_required'].fillna('').tolist()
+    all_skills = [user_skills_str] + job_skills_strings
 
     vectorizer = TfidfVectorizer().fit_transform(all_skills)
     vectors = vectorizer.toarray()

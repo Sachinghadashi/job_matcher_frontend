@@ -167,10 +167,14 @@ const UserDashboard = () => {
                                                     <p className="mb-2 fs-6 text-muted"><i className="bi bi-briefcase me-2"></i>{job.category}</p>
                                                     <p className="mb-2 fs-6 text-muted"><i className="bi bi-cash-stack me-2"></i><span className="fw-semibold text-success">{job.salary}</span></p>
                                                     <div className="mt-3">
-                                                        {job.skills_required.split(', ').slice(0, 4).map((skill, i) => (
+                                                        {(Array.isArray(job.skills_required) ? job.skills_required : (job.skills_required?.split(', ') || [])).slice(0, 4).map((skill, i) => (
                                                             <span key={i} className="badge bg-light text-dark border me-1 mb-1 fw-normal px-2 py-1">{skill}</span>
                                                         ))}
-                                                        {job.skills_required.split(', ').length > 4 && <span className="badge bg-light text-secondary border px-2 py-1">+{job.skills_required.split(', ').length - 4}</span>}
+                                                        {(Array.isArray(job.skills_required) ? job.skills_required : (job.skills_required?.split(', ') || [])).length > 4 && 
+                                                            <span className="badge bg-light text-secondary border px-2 py-1">
+                                                                +{(Array.isArray(job.skills_required) ? job.skills_required : (job.skills_required?.split(', ') || [])).length - 4}
+                                                            </span>
+                                                        }
                                                     </div>
                                                 </div>
                                                 <button 
@@ -247,7 +251,7 @@ const UserDashboard = () => {
                                     <hr className="opacity-10 mb-4" />
                                     <h6 className="fw-bold mb-3"><i className="bi bi-lightning-charge me-2 text-warning"></i>Required Skills</h6>
                                     <div className="d-flex flex-wrap gap-2 mb-4">
-                                        {selectedJob.skills_required.split(', ').map((skill, i) => (
+                                        {(Array.isArray(selectedJob.skills_required) ? selectedJob.skills_required : (selectedJob.skills_required?.split(', ') || [])).map((skill, i) => (
                                             <span key={i} className="badge bg-light text-dark border px-3 py-2 fw-medium rounded-3">{skill}</span>
                                         ))}
                                     </div>
