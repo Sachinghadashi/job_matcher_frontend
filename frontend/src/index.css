@@ -1,0 +1,147 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+body {
+  margin: 0;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI',Roboto,
+    'Helvetica Neue', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: linear-gradient(135deg, #f0f4fd 0%, #e1e9f9 100%);
+  min-height: 100vh;
+  color: #2b3452;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+/* Premium Card Styles */
+.card {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 10px 25px rgba(35, 45, 90, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 16px;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.job-card {
+  border-left: 5px solid #4361ee;
+}
+
+.job-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 35px rgba(67, 97, 238, 0.15);
+  border-left: 5px solid #3f37c9;
+}
+
+/* Enhancing inputs and buttons */
+.form-control, .form-select {
+  border-radius: 10px;
+  padding: 0.75rem 1rem;
+  border: 1px solid #dce1f0;
+  background-color: #f8fafc;
+  transition: all 0.2s ease;
+}
+
+.form-control:focus, .form-select:focus {
+  border-color: #4361ee;
+  box-shadow: 0 0 0 0.25rem rgba(67, 97, 238, 0.15);
+  background-color: #ffffff;
+}
+
+.btn {
+  border-radius: 10px;
+  padding: 0.6rem 1.2rem;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  transition: all 0.2s;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #4361ee 0%, #3a0ca3 100%);
+  border: none;
+  box-shadow: 0 4px 15px rgba(67, 97, 238, 0.3);
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, #3f37c9 0%, #31087b 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(67, 97, 238, 0.4);
+}
+
+.btn-success {
+  background: linear-gradient(135deg, #2a9d8f 0%, #21867a 100%);
+  border: none;
+  box-shadow: 0 4px 15px rgba(42, 157, 143, 0.3);
+}
+
+.btn-success:hover {
+  background: linear-gradient(135deg, #248277 0%, #1c6d64 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(42, 157, 143, 0.4);
+}
+
+/* Navbar Enhancements */
+.navbar {
+  background: rgba(255, 255, 255, 0.9) !important;
+  backdrop-filter: blur(15px);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+  padding: 1rem 0;
+}
+
+.navbar-brand {
+  color: #3a0ca3 !important;
+  font-weight: 700 !important;
+  font-size: 1.5rem;
+  letter-spacing: -0.5px;
+}
+
+.nav-link {
+  color: #485375 !important;
+  font-weight: 500;
+  margin: 0 0.5rem;
+  transition: color 0.2s;
+}
+
+.nav-link:hover {
+  color: #4361ee !important;
+}
+
+.spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40vh;
+}
+
+.stat-card {
+  overflow: hidden;
+  position: relative;
+}
+
+.stat-card::after {
+  content: '';
+  position: absolute;
+  top: -50px;
+  right: -50px;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.1);
+  transform: scale(1);
+  transition: transform 0.5s;
+}
+
+.stat-card:hover::after {
+  transform: scale(2.5);
+}
+
+.bg-gradient-primary {
+  background: linear-gradient(135deg, #4361ee 0%, #3a0ca3 100%) !important;
+}
+
+.bg-gradient-success {
+  background: linear-gradient(135deg, #2a9d8f 0%, #1c6d64 100%) !important;
+}
